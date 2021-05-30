@@ -11,6 +11,7 @@ import {
   isAddNewTodoModalOpenState,
   unCompletedtodosState,
 } from "../../recoil/state";
+import axios from "axios";
 /** @jsxImportSource theme-ui */
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +58,20 @@ const AddNewTodo = () => {
       updated_at: new Date(),
       user_id: userId,
     };
+
+    axios
+      .post(
+        "https://gorest.co.in/public-api/todos",
+        { ...newTodo },
+        {
+          headers: {
+            Authorization:
+              "Bearer 110cff21757d0e9d9e2b50d488826d283df916eaa90fd8421fe5bd8fe7caae18",
+          },
+        }
+      )
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
 
     setUnCompletedTodos([...unCompletedTodos, newTodo]);
     setIsAddNewTodoModalOpen(false);
@@ -115,9 +130,9 @@ const AddNewTodo = () => {
             <button
               type="submit"
               sx={{
-                marginTop: "20px",
-                width: "50px",
-                height: "20px",
+                marginTop: "10px",
+                width: "84px",
+                height: "24px",
                 borderRadius: "5px",
                 border: "1px",
                 outline: "none",

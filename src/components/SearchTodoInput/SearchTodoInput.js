@@ -64,7 +64,13 @@ const SearchTodoInput = ({ todosType }) => {
   };
 
   return (
-    <>
+    <div
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        "@media screen and (max-width: 750px)": { justifyContent: "center" },
+      }}
+    >
       <input
         sx={{
           borderTopLeftRadius: "10px",
@@ -78,6 +84,12 @@ const SearchTodoInput = ({ todosType }) => {
           textAlign: "center",
           marginRight: "5px",
           fontFamily: "Montserrat",
+          "@media screen and (max-width: 750px)": {
+            justifyContent: "center",
+            width: "128px",
+            height: "25px",
+            marginTop: "10px",
+          },
         }}
         value={searchInput}
         onChange={handleSearchInputChange}
@@ -87,12 +99,12 @@ const SearchTodoInput = ({ todosType }) => {
       <FontAwesomeIcon
         sx={{
           display: "grid",
-          alingItem: "center",
+          // alingItem: "center",
           color: "#fff",
         }}
         icon={faSearch}
       />
-    </>
+    </div>
   );
 };
 

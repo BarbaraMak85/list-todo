@@ -6,7 +6,7 @@ export const mainTheme = {
     navbarSecendary: "#d4deed",
     colorBbTask: "#FBFBFB",
     checkIcon: "#f2a05a",
-    plusIcon: "#0a3574",
+    plusIcon: "#f2a05a",
     fontColor: "#433F42",
     mainListBg: "#fdf1f1",
   },

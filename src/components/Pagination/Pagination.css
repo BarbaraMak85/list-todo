@@ -1,0 +1,40 @@
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin: auto;
+  width: 90%;
+  cursor: pointer;
+}
+.pagination a {
+  /* color: #fff; */
+}
+.pagination li {
+  background-color: #5366ad;
+  width: 24px;
+  height: 21px;
+  /* font-weight: bold; */
+  font-size: 18px;
+  justify-content: center;
+  justify-self: center;
+  display: grid;
+  border-radius: 5px;
+  align-items: center;
+  margin: 1px;
+}
+
+.active {
+  color: white;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 750px) {
+  .pagination {
+    width: 80%;
+  }
+  .pagination li {
+    width: 20px;
+    height: 16px;
+
+    font-size: 12px;
+  }
+}

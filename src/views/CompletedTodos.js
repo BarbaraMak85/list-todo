@@ -5,6 +5,7 @@ import { completedTodosState } from "../recoil/state";
 /** @jsxImportSource theme-ui */
 import { todosTypes } from "../helpers/todosTypes";
 import SearchTodoInput from "../components/SearchTodoInput/SearchTodoInput";
+import Pagination from "../components/Pagination/Pagination";
 const CompletedTodos = () => {
   const [completedTodos, setCompletedTodos] =
     useRecoilState(completedTodosState);
@@ -14,11 +15,29 @@ const CompletedTodos = () => {
         marginTop: "25px",
       }}
     >
-      <div sx={{ display: "flex", marginBottom: "20px", alignItems: "center" }}>
-        <SearchTodoInput todosType={todosTypes.completed} />
-        <h1 sx={{ marginLeft: "87px" }}>CompletedTodos</h1>
+      <div
+        sx={{
+          "@media screen and (max-width: 750px)": {
+            display: "grid",
+            justifyContent: "end",
+          },
+        }}
+      >
+        <Pagination />
       </div>
-
+      <div sx={{ display: "grid" }}>
+        <SearchTodoInput todosType={todosTypes.completed} />
+        <h1
+          sx={{
+            fontFamily: "Montserrat",
+            textAlign: "center",
+            marginTop: "11px",
+            fontSize: "18px",
+          }}
+        >
+          CompletedTodos
+        </h1>
+      </div>
       <TodoList todosArray={completedTodos} todosType={todosTypes.completed} />
     </div>
   );

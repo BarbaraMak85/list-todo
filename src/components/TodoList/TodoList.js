@@ -14,10 +14,33 @@ const TodoList = ({ todosArray, todosType }) => {
         gridTemplateColumns: "1fr 1fr 1fr",
         marginRight: "6px",
         paddingTop: "20px",
+
+        "@media screen and (max-width: 1100px)": {
+          gridTemplateColumns: " 1fr 1fr",
+
+          justifyContent: "center",
+        },
+        "@media screen and (max-width: 650px)": {
+          gridTemplateColumns: " 1fr",
+
+          justifyContent: "center",
+        },
       }}
     >
       {todosArray.map((todo) => (
-        <li sx={{}} key={todo.id}>
+        <li
+          sx={{
+            "@media screen and (max-width: 1100px)": {
+              display: "grid",
+              justifyContent: "center",
+            },
+            "@media screen and (max-width: 650px)": {
+              display: "grid",
+              justifyContent: "center",
+            },
+          }}
+          key={todo.id}
+        >
           <TodoListItem {...todo} todosType={todosType} />
         </li>
       ))}

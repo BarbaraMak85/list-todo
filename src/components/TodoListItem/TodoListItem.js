@@ -1,7 +1,8 @@
 import React from "react";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import Tippy from "@tippyjs/react";
+import { mainTheme } from "../../themes/mainTheme";
 import { useRecoilState } from "recoil";
 import { completedTodosState, unCompletedtodosState } from "../../recoil/state";
 import { todosTypes } from "../../helpers/todosTypes";
@@ -66,6 +67,10 @@ const TodoListItem = ({ title, created_at, id, todosType }) => {
         width: "250px",
         height: "200px",
         marginBottom: "20px",
+        "@media screen and (max-width: 750px)": {
+          width: "201px",
+          height: "174px",
+        },
       }}
     >
       <textarea
@@ -81,35 +86,81 @@ const TodoListItem = ({ title, created_at, id, todosType }) => {
           borderRight: "1px solid #fff",
           borderLeft: "1px solid #fff",
           fontFamily: "Montserrat",
+          fontSize: "12px",
         }}
         type="text"
         value={title}
         placeholder="Type your todo..."
         onChange={(e) => editTodo(e, id)}
       />
-      <p sx={{ position: "absolute", bottom: "3%", left: "4%" }}>
+      <p
+        sx={{
+          position: "absolute",
+          bottom: "3%",
+          left: "4%",
+          "@media screen and (max-width: 750px)": {
+            fontSize: "12px",
+          },
+          "@media screen and (max-width: 1100px)": {
+            fontSize: "12px",
+          },
+        }}
+      >
         {moment(created_at).format("DD/MM/YY")}
       </p>
-      <p sx={{ position: "absolute", bottom: "3%", right: "4%" }}>
+      <p
+        sx={{
+          position: "absolute",
+          bottom: "3%",
+          right: "4%",
+          "@media screen and (max-width: 750px)": {
+            fontSize: "12px",
+          },
+          "@media screen and (max-width: 1100px)": {
+            fontSize: "12px",
+          },
+        }}
+      >
         {title.length} / 500
       </p>
 
-      <FontAwesomeIcon
+      <Tippy
         sx={{
-          color: "red",
-          padding: "3px",
-          position: "absolute",
-          zIndex: "100",
-          top: "-4%",
-          right: "-3.5%",
-          backgroundColor: "white",
-          borderRadius: "20px",
-          cursor: "pointer",
+          backgroundColor: mainTheme.colors.navbarSecendary,
+          color: mainTheme.colors.fontColor,
+          borderRadius: "5px",
+          width: "70px",
+          height: "30px",
+          fontSize: "12px",
+          transition: ".25s all ease",
+          display: "grid",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: "180px",
+          marginLeft: "80px",
+          fontFamily: "Montserrat",
         }}
-        icon={faTimesCircle}
-        size="2x"
-        onClick={() => deleteTodo(id)}
-      />
+        content="Delete"
+      >
+        <div>
+          <FontAwesomeIcon
+            sx={{
+              color: "red",
+              padding: "3px",
+              position: "absolute",
+              zIndex: "100",
+              top: "-4%",
+              right: "-3.5%",
+              backgroundColor: "white",
+              borderRadius: "20px",
+              cursor: "pointer",
+            }}
+            icon={faTimesCircle}
+            size="2x"
+            onClick={() => deleteTodo(id)}
+          />
+        </div>
+      </Tippy>
     </div>
   );
 };

@@ -25,6 +25,9 @@ const MainTemplate = ({ children }) => {
           borderRadius: "40px",
           display: "grid",
           gridTemplateColumns: "0.30fr 1fr",
+          "@media screen and (max-width: 750px)": {
+            height: "94vh",
+          },
         }}
       >
         <AddNewTodo />
