@@ -10,10 +10,10 @@
 }
 .pagination li {
   background-color: #5366ad;
-  width: 24px;
+  width: 27px;
   height: 21px;
   /* font-weight: bold; */
-  font-size: 18px;
+  font-size: 16px;
   justify-content: center;
   justify-self: center;
   display: grid;
@@ -24,7 +24,6 @@
 
 .active {
   color: white;
-  font-weight: bold;
 }
 
 @media screen and (max-width: 750px) {
@@ -35,6 +34,6 @@
     width: 20px;
     height: 16px;
 
-    font-size: 12px;
+    font-size: 10px;
   }
 }

@@ -49,10 +49,7 @@ const Navbar = () => {
           justifyContent: "center",
           borderTopLeftRadius: "40px",
           borderBottomLeftRadius: "40px",
-          "@media screen and (max-width: 1300px)": {
-            width: "80px",
-            height: "auto",
-          },
+
           "@media screen and (max-width: 1100px)": {
             width: "50px",
             height: "auto",
@@ -203,9 +200,7 @@ const Navbar = () => {
           backgroundColor: mainTheme.colors.navbarSecendary,
           width: "190px",
           paddingTop: "36px",
-          "@media screen and (max-width: 1300px)": {
-            width: "170px",
-          },
+
           "@media screen and (max-width: 1100px)": {
             width: "100px",
           },
@@ -217,9 +212,7 @@ const Navbar = () => {
         <h3
           sx={{
             marginBottom: "16px",
-            "@media screen and (max-width: 1300px)": {
-              fontSize: "18px",
-            },
+
             "@media screen and (max-width: 750px)": {
               fontSize: "12px",
             },
@@ -302,6 +295,7 @@ const Navbar = () => {
                 sx={{
                   textDecoration: "none",
                   color: mainTheme.colors.fontColor,
+                  fontSize: "18px",
                   "@media screen and (max-width: 1200px)": {
                     fontSize: "10px",
                   },
