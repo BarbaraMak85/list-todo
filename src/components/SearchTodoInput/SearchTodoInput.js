@@ -22,6 +22,7 @@ const SearchTodoInput = ({ todosType }) => {
   const [staticCompletedTodos, setStaticCompletedTodos] = useRecoilState(
     staticCompletedTodosState
   );
+  console.log(staticUnCompletedtodosState);
 
   const [staticUnCompletedTodos, setStaticUnCompletedTodos] = useRecoilState(
     staticUnCompletedtodosState

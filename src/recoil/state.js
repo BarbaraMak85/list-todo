@@ -5,6 +5,11 @@ export const userState = atom({
   default: 200,
 });
 
+export const userId = atom({
+  key: "userId",
+  default: 1518,
+});
+
 export const unCompletedtodosState = atom({
   key: "unCompletedtodosState",
   default: [],

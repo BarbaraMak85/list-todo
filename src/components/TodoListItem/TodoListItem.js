@@ -1,20 +1,28 @@
 import React from "react";
 import moment from "moment";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tippy from "@tippyjs/react";
 import { mainTheme } from "../../themes/mainTheme";
 import { useRecoilState } from "recoil";
 import { completedTodosState, unCompletedtodosState } from "../../recoil/state";
 import { todosTypes } from "../../helpers/todosTypes";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimesCircle,
+  faCheckCircle,
+} from "@fortawesome/free-solid-svg-icons";
 /** @jsxImportSource theme-ui */
 
 const TodoListItem = ({ title, created_at, id, todosType }) => {
+  console.log(id);
+
   const [unCompletedTodos, setUnCompletedTodos] = useRecoilState(
     unCompletedtodosState
   );
   const [completedTodos, setCompletedTodos] =
     useRecoilState(completedTodosState);
+
+  console.log(completedTodos);
 
   const editTodo = (e, todoId) => {
     if (todosType === todosTypes.unCompleted) {
@@ -47,17 +55,61 @@ const TodoListItem = ({ title, created_at, id, todosType }) => {
   };
 
   const deleteTodo = (todoId) => {
-    if (todosType === todosTypes.unCompleted) {
-      const filteredTodos = unCompletedTodos.filter(
-        (todo) => todo.id !== todoId
-      );
+    console.log(todoId);
 
-      setUnCompletedTodos([...filteredTodos]);
-    } else {
-      const filteredTodos = completedTodos.filter((todo) => todo.id !== todoId);
+    axios
+      .delete(`https://gorest.co.in/public-api/todos/${todoId}`, {
+        headers: {
+          Authorization:
+            "Bearer 110cff21757d0e9d9e2b50d488826d283df916eaa90fd8421fe5bd8fe7caae18",
+        },
+      })
+      .then((res) => {
+        if (todosType === todosTypes.unCompleted) {
+          const filteredTodos = unCompletedTodos.filter(
+            (todo) => todo.id !== todoId
+          );
 
-      setCompletedTodos([...filteredTodos]);
-    }
+          setUnCompletedTodos([...filteredTodos]);
+        } else {
+          const filteredTodos = completedTodos.filter(
+            (todo) => todo.id !== todoId
+          );
+
+          setCompletedTodos([...filteredTodos]);
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const setCompleted = (id) => {
+    console.log(id);
+
+    axios
+      .patch(
+        `https://gorest.co.in/public-api/todos/${id}`,
+        { completed: true },
+        {
+          headers: {
+            Authorization:
+              "Bearer 110cff21757d0e9d9e2b50d488826d283df916eaa90fd8421fe5bd8fe7caae18",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+
+        const findedElementIndex = unCompletedTodos.findIndex(
+          (el) => el.id == id
+        );
+
+        const completedElement = unCompletedTodos[findedElementIndex];
+        console.log(completedElement);
+
+        setUnCompletedTodos(unCompletedTodos.filter((el) => el.id !== id));
+
+        setCompletedTodos([...completedTodos, completedElement]);
+      });
   };
 
   return (
@@ -123,6 +175,27 @@ const TodoListItem = ({ title, created_at, id, todosType }) => {
       >
         {title.length} / 500
       </p>
+
+      {todosType === todosTypes.unCompleted && (
+        // <button onClick={setCompleted}>Set completed</button>
+
+        <FontAwesomeIcon
+          sx={{
+            color: "#32CD32",
+            padding: "3px",
+            position: "absolute",
+            zIndex: "100",
+            backgroundColor: "white",
+            borderRadius: "20px",
+            cursor: "pointer",
+            top: "13%",
+            left: "91%",
+          }}
+          icon={faCheckCircle}
+          size="2x"
+          onClick={() => setCompleted(id)}
+        />
+      )}
 
       <Tippy
         sx={{

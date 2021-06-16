@@ -10,6 +10,7 @@ import {
   pageNumberState,
   activePageState,
   userState,
+  userId,
 } from "../recoil/state";
 import Router from "../routing/Router";
 import { ThemeProvider } from "@theme-ui/theme-provider";
@@ -19,27 +20,28 @@ import MainTemplate from "../templates/MainTemplate";
 const Root = () => {
   const [user, setUser] = useRecoilState(userState);
 
-  useEffect(() => {
-    axios
-      .post(
-        "https://gorest.co.in/public-api/users",
-        {
-          user_id: user,
-          email: "name@o2.pl",
-          name: "Testowy User",
-          gender: "Male",
-          status: "Active",
-        },
-        {
-          headers: {
-            Authorization:
-              "Bearer 110cff21757d0e9d9e2b50d488826d283df916eaa90fd8421fe5bd8fe7caae18",
-          },
-        }
-      )
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  }, [user]);
+  // useEffect(() => {
+  //   axios
+  //     .post(
+  //       "https://gorest.co.in/public-api/users",
+  //       {
+  //         user_id: user,
+  //         email: "email@email.pl",
+  //         name: "Testowy User",
+  //         gender: "Male",
+  //         status: "Active",
+  //         message: "test message",
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization:
+  //             "Bearer 110cff21757d0e9d9e2b50d488826d283df916eaa90fd8421fe5bd8fe7caae18",
+  //         },
+  //       }
+  //     )
+  //     .then((res) => console.log(res))
+  //     .catch((err) => console.log(err));
+  // }, [user]);
 
   const [unCompletedTodos, setUnCompletedTodos] = useRecoilState(
     unCompletedtodosState
@@ -58,13 +60,17 @@ const Root = () => {
   const [pageNumber, setPageNumber] = useRecoilState(pageNumberState);
   const [activePage, setActivePage] = useRecoilState(activePageState);
 
+  const [defaultUserId, setDefaultUserId] = useRecoilState(userId);
+
   useEffect(() => {
     getTodosFromApi();
   }, [activePage]);
 
   const getTodosFromApi = () => {
     axios
-      .get(`https://gorest.co.in/public-api/todos?page=${activePage}`)
+      .get(
+        `https://gorest.co.in/public-api/users/${defaultUserId}/todos?page=${activePage}`
+      )
       .then((res) => {
         console.log(res);
 

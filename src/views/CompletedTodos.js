@@ -9,6 +9,8 @@ import Pagination from "../components/Pagination/Pagination";
 const CompletedTodos = () => {
   const [completedTodos, setCompletedTodos] =
     useRecoilState(completedTodosState);
+
+  console.log(completedTodos);
   return (
     <div
       sx={{

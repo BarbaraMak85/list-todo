@@ -10,6 +10,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import {
   isAddNewTodoModalOpenState,
   unCompletedtodosState,
+  userId,
 } from "../../recoil/state";
 import axios from "axios";
 /** @jsxImportSource theme-ui */
@@ -42,21 +43,21 @@ const AddNewTodo = () => {
   const [unCompletedTodos, setUnCompletedTodos] = useRecoilState(
     unCompletedtodosState
   );
+  const [defaultUserId, setDefaultUserId] = useRecoilState(userId);
 
   const handleAddNewTodoForm = (e) => {
+    console.log(defaultUserId);
     e.preventDefault();
 
     const todoTitle = e.target.todoTitle.value;
     const todoId = Math.floor(Math.random() * 10000);
-    const userId = Math.floor(Math.random() * 100000);
 
     const newTodo = {
       completed: false,
       created_at: new Date(),
-      id: todoId,
       title: todoTitle,
       updated_at: new Date(),
-      user_id: userId,
+      user_id: defaultUserId,
     };
 
     axios
@@ -70,11 +71,12 @@ const AddNewTodo = () => {
           },
         }
       )
-      .then((res) => console.log(res))
+      .then((res) => {
+        newTodo.id = res.data.data.id;
+        setUnCompletedTodos([...unCompletedTodos, newTodo]);
+        setIsAddNewTodoModalOpen(false);
+      })
       .catch((err) => console.log(err));
-
-    setUnCompletedTodos([...unCompletedTodos, newTodo]);
-    setIsAddNewTodoModalOpen(false);
 
     e.target.reset();
   };

@@ -5,6 +5,8 @@ import { mainTheme } from "../../themes/mainTheme";
 import TodoListItem from "../TodoListItem/TodoListItem";
 
 const TodoList = ({ todosArray, todosType }) => {
+  console.log(todosArray);
+
   return (
     <ul
       sx={{
